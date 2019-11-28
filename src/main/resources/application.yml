@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.maohangbin.com:3306/luka?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 146408
+    type: com.alibaba.druid.pool.DruidDataSource
+redis:
+  host: redis.maohangbin.com
+  port: 6379
+  password: 146408
+  timeout: 5000

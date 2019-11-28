@@ -53,18 +53,18 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
         </dependency>
-        <!--shiro-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-all</artifactId>
-            <version>1.4.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.shiro</groupId>
-                    <artifactId>shiro-quartz</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!--&lt;!&ndash;shiro&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shiro</groupId>-->
+            <!--<artifactId>shiro-all</artifactId>-->
+            <!--<version>1.4.0</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.apache.shiro</groupId>-->
+                    <!--<artifactId>shiro-quartz</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
         <!--StringUtils-->
         <dependency>
             <groupId>commons-lang</groupId>
@@ -76,6 +76,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.58</version>
+        </dependency>
+        <!--websocket-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
         </dependency>
     </dependencies>
 
