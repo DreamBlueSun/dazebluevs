@@ -20,7 +20,11 @@ public class ChessInterceptor extends HttpSessionHandshakeInterceptor {
         //截取请求Url最后参数作为用户名
         String requestUrl = request.getURI().toString();
         String userName = StringUtils.substring(requestUrl, requestUrl.lastIndexOf("/") + 1);
+        //截取请求Url最后参数上一个作为房间名
+        String urlExcludeUserName = StringUtils.substring(requestUrl, 0, requestUrl.lastIndexOf("/"));
+        String roomName = StringUtils.substring(urlExcludeUserName, urlExcludeUserName.lastIndexOf("/") + 1);
         //放入attributes
+        attributes.put("roomName", roomName);
         attributes.put("userName", userName);
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }
