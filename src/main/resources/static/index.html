@@ -2,88 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-
-    <script type="text/javascript">
-        var websocket = null;
-
-        function abc() {
-            // 初始化websocket
-            var roomName = document.getElementById("roomName").value;
-            var userName = document.getElementById("userName").value;
-            //判断浏览器是否支持websocket
-            if ('WebSocket' in window) {
-                console.log("ws://" + document.location.host + "/webSocket/" + roomName + "/" + userName)
-                websocket = new WebSocket("ws://" + document.location.host + "/webSocket/" + roomName + "/" + userName);
-
-                websocket.onopen = function () {
-                    setMessage("连接成功")
-                }
-                websocket.onclose = function () {
-                    setMessage("连接关闭")
-                }
-                websocket.onerro = function () {
-                    setMessage("连接出错")
-                }
-                websocket.onmessage = function (message) {
-                    setMessage(message.data)
-                }
-
-            } else {
-                alert("....")
-            }
-        }
-
-
-        function setMessage(data) {
-            var xianshi = document.getElementById("xianshi");
-            xianshi.innerHTML = data;
-        }
-
-
-        function close() {
-            if (websocket != null) {
-                websocket.close()
-            }
-        }
-
-        //发送消息
-        function sendmessage() {
-            var roomName = document.getElementById("roomName").value;
-            var userName = document.getElementById("userName").value;
-            if (websocket != null) {
-                var message = '{"roomName":"' + roomName + '","userName":"' + userName + '"}';
-                websocket.send(message)
-            }
-
-        }
-
-
-        //页面关闭之前
-        window.onbeforeunload = function () {
-            close();
-        }
-
-
-    </script>
+    <title>DazeVS</title>
 </head>
 <body>
-
-
-房间名: <input id="roomName">
-用户名: <input id="userName">
-<button onclick="abc()">连接</button>
-<br>
-<button onclick="sendmessage()">发送</button>
-<br>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<span id="xianshi"></span>
-
+<a href="vs/html/five_in_a_row_15.html">五子棋</a>
 </body>
 </html>

@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description:
@@ -13,14 +14,48 @@ import java.util.List;
  */
 
 public class FiveInARowUtils {
-    
+
     private final static int englishLetterStartIndex = 64;
     private final static int doPointLength = 2;
     private final static int maxNeedMore = 4;
     private final static int minPoint = 1;
     private final static int maxPoint = 15;
 
-    private final static FiveInARowDropPoint getDropPoint(String doPoint) {
+    public static boolean isWin(String doPoint, String userType, Map<String, String> pointAllMap) {
+        FiveInARowDropPoint dropPoint = getDropPoint(doPoint);
+        List<String> columnLinkList = getColumnLinkList(dropPoint);
+        List<String> rowLinkList = getRowLinkList(dropPoint);
+        List<String> leftObliqueLinkList = getLeftObliqueLinkList(dropPoint);
+        List<String> rightObliqueLinkList = getRightObliqueLinkList(dropPoint);
+        if (checkOneLinkIsWin(columnLinkList, userType, pointAllMap)) {
+            return true;
+        } else if (checkOneLinkIsWin(rowLinkList, userType, pointAllMap)) {
+            return true;
+        } else if (checkOneLinkIsWin(leftObliqueLinkList, userType, pointAllMap)) {
+            return true;
+        } else if (checkOneLinkIsWin(rightObliqueLinkList, userType, pointAllMap)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean checkOneLinkIsWin(List<String> pointLinkList, String userType, Map<String, String> pointAllMap) {
+        int count = 0;
+        for (String point : pointLinkList) {
+            String chessType = pointAllMap.get(point);
+            if (StringUtils.equals(userType, chessType)) {
+                count++;
+                if (count == 5) {
+                    return true;
+                }
+            } else {
+                count = 0;
+            }
+        }
+        return false;
+    }
+
+    public static FiveInARowDropPoint getDropPoint(String doPoint) {
         doPoint = StringUtils.trim(doPoint);
         if (doPoint.length() != doPointLength) {
             return null;
@@ -37,7 +72,9 @@ public class FiveInARowUtils {
         return fiveInARowDropPoint;
     }
 
-    private final static List<String> getRowLinkList(int columnInt, String row) {
+    public static List<String> getRowLinkList(FiveInARowDropPoint dropPoint) {
+        Integer columnInt = dropPoint.getColumnInt();
+        String row = dropPoint.getRow();
         List<String> rowLinkList = new ArrayList<>();
         int minRowPoint = columnInt - maxNeedMore;
         if (minRowPoint < minPoint) {
@@ -54,7 +91,9 @@ public class FiveInARowUtils {
         return rowLinkList;
     }
 
-    private final static List<String> getColumnLinkList(String column, int rowInt) {
+    public static List<String> getColumnLinkList(FiveInARowDropPoint dropPoint) {
+        String column = dropPoint.getColumn();
+        Integer rowInt = dropPoint.getRowInt();
         List<String> columnLinkList = new ArrayList<>();
         int minColumnPoint = rowInt - maxNeedMore;
         if (minColumnPoint < minPoint) {
@@ -70,7 +109,9 @@ public class FiveInARowUtils {
         return columnLinkList;
     }
 
-    private final static List<String> getRightObliqueLinkList(int columnInt, int rowInt) {
+    public static List<String> getRightObliqueLinkList(FiveInARowDropPoint dropPoint) {
+        Integer columnInt = dropPoint.getColumnInt();
+        Integer rowInt = dropPoint.getRowInt();
         List<String> rightObliqueLinkList = new ArrayList<>();
         int minThanColumn = columnInt - minPoint;
         int minThanRow = rowInt - minPoint;
@@ -102,7 +143,9 @@ public class FiveInARowUtils {
         return rightObliqueLinkList;
     }
 
-    private final static List<String> getLeftObliqueLinkList(int columnInt, int rowInt) {
+    public static List<String> getLeftObliqueLinkList(FiveInARowDropPoint dropPoint) {
+        Integer columnInt = dropPoint.getColumnInt();
+        Integer rowInt = dropPoint.getRowInt();
         List<String> leftObliqueLinkList = new ArrayList<>();
         int minThanColumn = maxPoint - columnInt;
         int minThanRow = rowInt - minPoint;
@@ -133,5 +176,5 @@ public class FiveInARowUtils {
         }
         return leftObliqueLinkList;
     }
-    
+
 }

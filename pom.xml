@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <packaging>war</packaging>
     <groupId>com.kirisame.gensokyo</groupId>
     <artifactId>daze-blue-vs</artifactId>
     <version>0.0.1</version>
@@ -55,15 +55,15 @@
         </dependency>
         <!--&lt;!&ndash;shiro&ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>org.apache.shiro</groupId>-->
-            <!--<artifactId>shiro-all</artifactId>-->
-            <!--<version>1.4.0</version>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.apache.shiro</groupId>-->
-                    <!--<artifactId>shiro-quartz</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
+        <!--<groupId>org.apache.shiro</groupId>-->
+        <!--<artifactId>shiro-all</artifactId>-->
+        <!--<version>1.4.0</version>-->
+        <!--<exclusions>-->
+        <!--<exclusion>-->
+        <!--<groupId>org.apache.shiro</groupId>-->
+        <!--<artifactId>shiro-quartz</artifactId>-->
+        <!--</exclusion>-->
+        <!--</exclusions>-->
         <!--</dependency>-->
         <!--StringUtils-->
         <dependency>
@@ -85,7 +85,7 @@
     </dependencies>
 
     <build>
-        <finalName>BlueVS</finalName>
+        <finalName>DazeFiveInARowVS</finalName>
     </build>
 
 </project>

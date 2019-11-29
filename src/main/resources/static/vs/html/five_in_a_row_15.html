@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="../../jquery/jquery-3.4.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/path.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vs.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/vs.css" />
+	</head>
+	<body>
+		<div id="join_div" class="container">
+			<div class="row clearfix">
+				<div class="col-md-4 col-md-offset-4 column" align="center">
+					<h1>五子棋</h1>
+				</div>
+				<div class="col-md-4 col-md-offset-4 column">
+					<div class="form-group">
+						<label for="room_name">房间号：</label>
+						<input type="number" class="form-control" id="room_name" maxlength="3" placeholder="输入3位数字房间号" />
+					</div>
+					<div class="form-group">
+						<label for="user_name">用户名：</label>
+						<input type="text" class="form-control" id="user_name" maxlength="8" placeholder="输入您的游戏名称" />
+					</div>
+					<button type="button" class="btn btn-primary btn-default btn-block" id="join_room">加入房间</button>
+					<input type="text" id="user_type"value="" maxlength="1" style="display: none" />
+				</div>
+			</div>
+		</div>
+		<div id="chess_div" class="container" style="display: none;">
+			<div class="row clearfix">
+				<div class="col-md-12 column" align="center">
+					<h2 id="room_name_joined"></h2>
+					<div class="col-md-4 col-md-offset-4 column">
+						<button type="button" class="btn btn-danger btn-default btn-block" id="leave_room" style="display: none">离开房间</button>
+					</div>
+				</div>
+				<div class="col-md-2 column" align="center">
+					<h2>【黑方】</h2>
+					<h2 id="user_name_black"></h2>
+					<h2 id="user_thinking_black" class="thinking-p">Thinking...</h2>
+				</div>
+				<div class="col-md-8 column" align="center">
+					<button type="button" class="btn btn-primary btn-default btn-block" id="chess_waiting">等待中···</button>
+					<button type="button" class="btn btn-primary btn-default btn-block" id="chess_start" style="display: none"></button>
+					<table id="chess_table" border="0" class="background-img-chess" style="display: none">
+						<tr>
+							<th align="center" class="chess-click-th" id="A1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N1">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O1">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N2">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O2">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N3">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O3">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N4">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O4">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N5">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O5">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N6">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O6">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N7">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O7">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N8">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O8">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N9">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O9">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N10">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O10">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N11">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O11">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N12">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O12">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N13">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O13">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N14">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O14">
+								<div />
+							</th>
+						</tr>
+						<tr>
+							<th align="center" class="chess-click-th" id="A15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="B15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="C15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="D15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="E15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="F15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="G15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="H15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="I15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="J15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="K15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="L15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="M15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="N15">
+								<div />
+							</th>
+							<th align="center" class="chess-click-th" id="O15">
+								<div />
+							</th>
+						</tr>
+					</table>
+				</div>
+				<div class="col-md-2 column" align="center">
+					<h2>【白方】</h2>
+					<h2 id="user_name_white"></h2>
+					<h2 id="user_thinking_white" class="thinking-p">Thinking...</h2>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.Map;
+
 @Component
 public class RedisClient implements RedisClientInterface {
     @Autowired
@@ -47,6 +49,11 @@ public class RedisClient implements RedisClientInterface {
     @Override
     public String hGet(String key, String filed, Jedis jedis) {
         return jedis.hget(key, filed);
+    }
+
+    @Override
+    public Map<String, String> hGetAll(String key, Jedis jedis) {
+        return jedis.hgetAll(key);
     }
 
     @Override

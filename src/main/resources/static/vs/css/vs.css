@@ -1,0 +1,38 @@
+table {
+    table-layout: fixed;
+    word-break: break-all;
+}
+
+.background-img-chess {
+    background: url(../img/five_in_a_row_15.png) no-repeat;
+    background-size: 100% 100%;
+    width: 540px;
+    height: 540px;
+    text-align: center;
+}
+
+.chess-click-th {
+    width: 36px;
+    height: 36px;
+}
+
+.chess-white-point {
+    background-color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+}
+
+.chess-black-point {
+    background-color: black;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+}
+.self-name-color {
+    color: orangered;
+}
+.thinking-p {
+    color: gold;
+    display: none;
+}

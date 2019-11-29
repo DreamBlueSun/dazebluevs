@@ -2,6 +2,8 @@ package com.kirisame.gensokyo.daze.blue.frame.redis.client;
 
 import redis.clients.jedis.Jedis;
 
+import java.util.Map;
+
 public interface RedisClientInterface {
     Jedis getJedis();
 
@@ -16,6 +18,8 @@ public interface RedisClientInterface {
     Long hSet(String key, String field, String value, Jedis jedis);
 
     String hGet(String key, String filed, Jedis jedis);
+
+    Map<String, String> hGetAll(String key, Jedis jedis);
 
     Long expire(String key, int seconds, Jedis jedis);
 
