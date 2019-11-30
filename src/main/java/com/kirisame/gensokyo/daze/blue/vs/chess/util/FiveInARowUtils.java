@@ -16,7 +16,8 @@ import java.util.Map;
 public class FiveInARowUtils {
 
     private final static int englishLetterStartIndex = 64;
-    private final static int doPointLength = 2;
+    private final static int doPointLength_2 = 2;
+    private final static int doPointLength_3 = 3;
     private final static int maxNeedMore = 4;
     private final static int minPoint = 1;
     private final static int maxPoint = 15;
@@ -57,11 +58,11 @@ public class FiveInARowUtils {
 
     public static FiveInARowDropPoint getDropPoint(String doPoint) {
         doPoint = StringUtils.trim(doPoint);
-        if (doPoint.length() != doPointLength) {
+        if (doPoint.length() != doPointLength_2 && doPoint.length() != doPointLength_3) {
             return null;
         }
         String column = StringUtils.substring(doPoint, 0, 1);
-        String row = StringUtils.substring(doPoint, 1, 2);
+        String row = StringUtils.substring(doPoint, 1);
         int columnInt = column.charAt(0) - englishLetterStartIndex;
         int rowInt = Integer.parseInt(row);
         FiveInARowDropPoint fiveInARowDropPoint = new FiveInARowDropPoint();
