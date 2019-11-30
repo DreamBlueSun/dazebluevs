@@ -8,7 +8,7 @@ $(function () {
         var userName = document.getElementById("user_name").value;
         //判断浏览器是否支持web_socket
         if ('WebSocket' in window) {
-            var url = "ws://" + document.location.host + "/webSocket/" + roomName + "/" + userName;
+            var url = "ws://" + document.location.host + pathHead + "webSocket/" + roomName + "/" + userName;
             console.log(url);
             web_socket = new WebSocket(url);
             web_socket.onopen = function () {
@@ -198,11 +198,7 @@ $(function () {
     //离开房间
     $("#leave_room").click(function () {
         close();
-        $("#leave_room").hide();
-        $("#chess_start").hide();
-        $("#chess_table").hide();
-        $(".thinking-p").hide();
-        $("#chess_waiting").show();
+        window.location.reload();
     });
 
     //页面关闭之前
