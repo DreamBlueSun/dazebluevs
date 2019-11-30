@@ -67,15 +67,24 @@ public class ChessHandler extends TextWebSocketHandler {
             joinVO.setWhiteName("");
             sendMessageToPlayerList(roomName, joinVO);
         } else if (playerList.size() < roomMapMaxSize) {
-            //加入房间
-            Player player = new Player(roomName, userName, "0", session);
-            playerList.add(player);
-            sessionPlayerMap.put(session.getId(), player);
-            joinVO.setIsJoined("1");
-            //第二人为白方
-            joinVO.setBlackName(playerList.get(0).getUserName());
-            joinVO.setWhiteName(userName);
-            sendMessageToPlayerList(roomName, joinVO);
+            //校验房间内重名
+            if (!StringUtils.equals(roomsMap.get(roomName).get(0).getUserName(), userName)) {
+                //加入房间
+                Player player = new Player(roomName, userName, "0", session);
+                playerList.add(player);
+                sessionPlayerMap.put(session.getId(), player);
+                joinVO.setIsJoined("1");
+                //第二人为白方
+                joinVO.setBlackName(playerList.get(0).getUserName());
+                joinVO.setWhiteName(userName);
+                sendMessageToPlayerList(roomName, joinVO);
+            } else {
+                joinVO.setIsJoined("0");
+                String jsonString = JSONObject.toJSONString(joinVO);
+                TextMessage textMessage = new TextMessage(jsonString);
+                sendMessageToPlayer(session, textMessage);
+                session.close();
+            }
         } else {
             joinVO.setIsJoined("-1");
             String jsonString = JSONObject.toJSONString(joinVO);
