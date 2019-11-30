@@ -8,7 +8,7 @@ $(function () {
         var userName = document.getElementById("user_name").value;
         //判断浏览器是否支持web_socket
         if ('WebSocket' in window) {
-            var url = "ws://" + document.location.host + pathHead + "webSocket/" + roomName + "/" + userName;
+            var url = "ws://" + document.location.host + "/webSocket/" + roomName + "/" + userName;
             console.log(url);
             web_socket = new WebSocket(url);
             web_socket.onopen = function () {
@@ -78,12 +78,16 @@ $(function () {
     //点击棋盘
     $(".chess-click-th").click(function () {
         if (could_click_chessboard) {
-            could_click_chessboard = false;
-            var room_name = document.getElementById("room_name").value;
             var do_point = $(this).prop('id');
-            if (web_socket != null) {
-                var message = '{"actionType":"1","roomName":"' + room_name + '","doPoint":"' + do_point + '"}';
-                web_socket.send(message);
+            //获取要落子的div，如果未落过子（无id），则继续
+            var div_id = $("#" + do_point).find("div").prop("id");
+            if (div_id.length == 0) {
+                could_click_chessboard = false;
+                var room_name = document.getElementById("room_name").value;
+                if (web_socket != null) {
+                    var message = '{"actionType":"1","roomName":"' + room_name + '","doPoint":"' + do_point + '"}';
+                    web_socket.send(message);
+                }
             }
         }
     });
@@ -124,13 +128,16 @@ $(function () {
             if (self_name == black_user_name) {
                 $("#user_type").val("1");
                 $("#chess_start").text("开始");
+                $("#chess_start").removeAttr("disabled");
                 $("#user_name_black").addClass("self-name-color");
+                $("#user_name_white").removeClass("self-name-color");
             }
             if (self_name == white_user_name) {
                 $("#user_type").val("0");
                 $("#chess_start").text("等待开始");
                 $("#chess_start").prop("disabled", "disabled");
                 $("#user_name_white").addClass("self-name-color");
+                $("#user_name_black").removeClass("self-name-color");
             }
         }
         if (is_joined == 0) {
@@ -161,6 +168,9 @@ $(function () {
         if (chess_is_win != -1) {
             var chess_color = obj.userType;
             var chess_point = obj.doPoint;
+            //落子的div添加id
+            $("#" + chess_point).find("div").prop("id","div_"+chess_point);
+            //处理落子
             if (chess_color == 0) {
                 $("#" + chess_point).find("div").addClass("chess-white-point");
                 $("#user_thinking_white").hide();
@@ -179,7 +189,6 @@ $(function () {
                 var user_name_is_win = chess_color == 0 ? "白" : "黑";
                 alert(user_name_is_win + "方胜！");
                 could_click_chessboard = false;
-                $("#room_name_joined").hide();
                 $(".thinking-p").hide();
                 $("#leave_room").show();
             }
