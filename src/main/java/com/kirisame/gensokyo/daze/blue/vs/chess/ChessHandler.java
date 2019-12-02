@@ -170,8 +170,7 @@ public class ChessHandler extends TextWebSocketHandler {
                 doPointVO.setDoPoint(doPoint);
                 sendMessageToPlayerList(roomName, doPointVO);
                 if (win) {
-                    redisClient.del("FIVE_IN_A_ROW_CHESS_" + roomName, jedis);
-                    roomsMap.remove(roomName);
+                    closeRoom(roomName);
                 }
             }
         } catch (Exception e) {
@@ -186,13 +185,18 @@ public class ChessHandler extends TextWebSocketHandler {
         Player player = sessionPlayerMap.get(session.getId());
         if (player != null) {
             sessionPlayerMap.remove(session.getId());
-            List<Player> playerList = roomsMap.get(player.getRoomName());
-            if (playerList != null && playerList.size() > 0) {
-                playerList.remove(player);
-                if (playerList.size() == 0) {
-                    roomsMap.remove(player.getRoomName());
-                } else {
-                    playerList.get(0).setUserType("1");
+            String roomName = player.getRoomName();
+            if (startedRoomSet.contains(roomName)) {
+                closeRoom(roomName);
+            } else {
+                List<Player> playerList = roomsMap.get(roomName);
+                if (playerList != null && playerList.size() > 0) {
+                    playerList.remove(player);
+                    if (playerList.size() == 0) {
+                        closeRoom(roomName);
+                    } else {
+                        playerList.get(0).setUserType("1");
+                    }
                 }
             }
         }
@@ -226,6 +230,35 @@ public class ChessHandler extends TextWebSocketHandler {
     private void sendMessageToPlayer(WebSocketSession session, TextMessage textMessage) {
         try {
             session.sendMessage(textMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void closeRoom(String roomName) {
+        Jedis jedis = null;
+        try {
+            jedis = redisClient.getJedis();
+            redisClient.del("FIVE_IN_A_ROW_CHESS_" + roomName, jedis);
+            closeSessionByRoomName(roomName);
+            roomsMap.remove(roomName);
+            startedRoomSet.remove(roomName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            redisClient.closeJedis(jedis);
+        }
+    }
+
+    private void closeSessionByRoomName(String roomName) {
+        try {
+            List<Player> playerList = roomsMap.get(roomName);
+            if (playerList != null && playerList.size() > 0) {
+                for (Player player : playerList) {
+                    WebSocketSession session = player.getSession();
+                    session.close();
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
