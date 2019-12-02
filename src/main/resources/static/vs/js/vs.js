@@ -1,6 +1,9 @@
 $(function () {
     var web_socket = null;
+    //控制是否可以落子
     var could_click_chessboard = false;
+    //记录当前落子位置
+    var last_point = "";
 
     function initWebSocket() {
         // 初始化web_socket
@@ -162,15 +165,15 @@ $(function () {
         }
     }
 
-    //判断落子胜负
+    //处理落子
     function doPointIsWin(obj) {
         var chess_is_win = obj.isWin;
         if (chess_is_win != -1) {
             var chess_color = obj.userType;
             var chess_point = obj.doPoint;
             //落子的div添加id
-            $("#" + chess_point).find("div").prop("id","div_"+chess_point);
-            //处理落子
+            $("#" + chess_point).find("div").prop("id", "div_" + chess_point);
+            //显示落子
             if (chess_color == 0) {
                 $("#" + chess_point).find("div").addClass("chess-white-point");
                 $("#user_thinking_white").hide();
@@ -181,6 +184,8 @@ $(function () {
                 $("#user_thinking_black").hide();
                 $("#user_thinking_white").show();
             }
+            showNewPoint(chess_point);
+            //判断结果
             var user_type = document.getElementById("user_type").value;
             if (user_type != chess_color) {
                 could_click_chessboard = true;
@@ -193,6 +198,15 @@ $(function () {
                 $("#leave_room").show();
             }
         }
+    }
+
+    //显示最新落子位置
+    function showNewPoint(chessPoint) {
+        if (last_point.length > 0) {
+            $("#" + last_point).find("div").empty();
+        }
+        $("#" + chessPoint).find("div").text("new");
+        last_point = chessPoint;
     }
 
     //离开房间
