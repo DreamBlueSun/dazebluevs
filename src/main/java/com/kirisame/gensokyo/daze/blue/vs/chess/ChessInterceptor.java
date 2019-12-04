@@ -6,6 +6,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
+import java.net.URLDecoder;
 import java.util.Map;
 
 /**
@@ -24,8 +25,9 @@ public class ChessInterceptor extends HttpSessionHandshakeInterceptor {
         String urlExcludeUserName = StringUtils.substring(requestUrl, 0, requestUrl.lastIndexOf("/"));
         String roomName = StringUtils.substring(urlExcludeUserName, urlExcludeUserName.lastIndexOf("/") + 1);
         //放入attributes
+        String userNameDecode = URLDecoder.decode(userName, "UTF-8");
         attributes.put("roomName", roomName);
-        attributes.put("userName", userName);
+        attributes.put("userName", userNameDecode);
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }
 
