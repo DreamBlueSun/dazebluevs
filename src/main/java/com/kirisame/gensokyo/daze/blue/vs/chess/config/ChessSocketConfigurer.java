@@ -17,6 +17,6 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class ChessSocketConfigurer implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
-        webSocketHandlerRegistry.addHandler(new ChessHandler(), "webSocket/**").addInterceptors(new ChessInterceptor());
+        webSocketHandlerRegistry.addHandler(new ChessHandler(), "webSocket/**").addInterceptors(new ChessInterceptor()).setAllowedOrigins("*");
     }
 }
