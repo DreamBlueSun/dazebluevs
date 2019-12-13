@@ -17,10 +17,10 @@ $(function () {
             web_socket.onopen = function () {
             }
             web_socket.onclose = function () {
-                showConnectDiv();
+                window.location.reload();
             }
             web_socket.onerro = function () {
-                showConnectDiv();
+                window.location.reload();
             }
             web_socket.onmessage = function (message) {
                 doMessage(message.data)
@@ -41,12 +41,6 @@ $(function () {
     function showChessDiv() {
         $("#join_div").hide();
         $("#chess_div").show();
-    }
-
-    //显示入口
-    function showConnectDiv() {
-        $("#chess_div").hide();
-        $("#join_div").show();
     }
 
     //加入房间
