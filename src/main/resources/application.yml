@@ -1,5 +1,5 @@
 redis:
   host: redis.maohangbin.com
   port: 6379
-  password: 146408
+  password: mhb6810.
   timeout: 5000
